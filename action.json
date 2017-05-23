@@ -21,7 +21,7 @@
         "conversationName": "samanage"
       },
       "intent": {
-        "name": "actions.intent.SINGLE_RETURN_NO_CONTEXT",
+        "name": "custom.intent.SINGLE_RETURN_NO_CONTEXT",
         "trigger": {
           "queryPatterns": [
             "what is the status of case 21360?",

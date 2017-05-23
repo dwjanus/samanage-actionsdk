@@ -57,9 +57,9 @@ export default ((request, response) => {
   console.log('** inside assistant function **')
   const assistant = new ActionsSdkApp({ request, response })
 
-  let actionMap = new Map()
+  const actionMap = new Map()
   actionMap.set(assistant.StandardIntents.MAIN, welcomeIntent)
-  actionMap.set(assistant.StandardIntents.SINGLE_RETURN_NO_CONTEXT, singleReturnNCIntent)
+  actionMap.set(assistant.custom.intent.SINGLE_RETURN_NO_CONTEXT, singleReturnNCIntent)
   assistant.handleRequest(actionMap)
 
   // let action = actionMap.get(assistant.getIntent())
