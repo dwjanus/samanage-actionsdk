@@ -32,3 +32,7 @@ const server = app.listen(app.get('port'), () => {
   console.log('App listening on port %s', server.address().port)
   console.log('Press Ctrl+C to quit')
 })
+
+exports.samanage = (req, res) => {
+  samanageAssistant(req, res)
+}
