@@ -10,7 +10,8 @@
         "name": "actions.intent.MAIN",
         "trigger": {
           "queryPatterns": [
-            "talk to Sammy"
+            { "queryPattern": "let me talk to Sammy" },
+						{ "queryPattern": "talk to Sammy" }
           ]
         }
       }
@@ -21,12 +22,12 @@
         "conversationName": "samanage"
       },
       "intent": {
-        "name": "custom.intent.SINGLE_RETURN_NO_CONTEXT",
+        "name": "com.actions.SINGLE_RETURN_NO_CONTEXT",
         "trigger": {
           "queryPatterns": [
-            "what is the status of case 21360?",
-						"what is the priority of case 21535?",
-						"who is the owner for ticket 21500?"
+            { "queryPattern": "what is the status of case 21360?" },
+						{ "queryPattern": "what is the priority of case 21535?" },
+						{ "queryPattern": "who is the owner for ticket 21500?" }
           ]
         }
       }
@@ -35,7 +36,7 @@
   "conversations": {
     "samanage": {
       "name": "samanage",
-      "url": "https://samanage-actionsdk.herokuapp.com/actions"
+      "url": "https://cbb4068b.ngrok.io/sammy-4a6ae/us-central1/samanage"
     }
   }
 }

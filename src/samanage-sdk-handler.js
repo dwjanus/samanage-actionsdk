@@ -5,29 +5,6 @@ import samanage from './samanage-api.js'
 
 const ActionsSdkApp = require('actions-on-google').ActionsSdkApp
 
-const welcomeIntent = (assistant) => {
-  console.log('** inside welcome case **')
-  assistant.ask('What can I do for you? If you are not totally sure what to do, just say: I need help')
-}
-
-const singleReturnNCIntent = (assistant, cb) => {
-  console.log('** inside single return [nc] case **')
-  const type = assistant.getArgument('record-type')
-  let recordType = type
-  if (!_.endsWith(recordType, 's')) recordType += 's'
-  const caseNumber = assistant.getArgument('caseNumber')
-  const returnType = assistant.getArgument('return-type')
-  return samanage.singleReturn(caseNumber, returnType, recordType).then((record) => {
-    console.log(`--> record ${util.inspect(record.number)} retrieved`)
-    let text = `I'm sorry, I was unable to retrieve any information on that ${recordType}`
-    if (record !== 'none' || null || undefined) text = `The ${returnType} of ${type} ${caseNumber} is ${record[returnType]}`
-    cb(null, text)
-  })
-  .catch((err) => {
-    cb(err, null)
-  })
-}
-
 // const getLatestIntent = (assistant, cb) => {
 //   console.log('** inside get latest case **')
 //   let recordType = assistant.getArgument('record-type')
@@ -47,12 +24,22 @@ const singleReturnNCIntent = (assistant, cb) => {
 
 export default ((request, response) => {
   console.log('** inside assistant function **')
-  const assistant = new ActionsSdkApp({ request, response })
+  const app = new ActionsSdkApp({ request, response })
+
+  const welcomeIntent = (app) => {
+    const inputPrompt = app.buildInputPrompt(false, 'Whats good fam! I heard ya loud n clear!')
+    app.ask(inputPrompt)
+  }
+
+  const singleReturnNCIntent = (app) => {
+    const inputPrompt = app.buildInputPrompt(false, 'Eyyy I heard your request for that too')
+    app.ask(inputPrompt)
+  }
 
   const actionMap = new Map()
-  actionMap.set(assistant.StandardIntents.MAIN, welcomeIntent)
-  actionMap.set(assistant.intent.SINGLE_RETURN_NO_CONTEXT, singleReturnNCIntent)
-  assistant.handleRequest(actionMap)
+  actionMap.set(app.StandardIntents.MAIN, welcomeIntent)
+  actionMap.set('com.actions.SINGLE_RETURN_NO_CONTEXT', singleReturnNCIntent)
+  app.handleRequest(actionMap)
 
   // let action = actionMap.get(assistant.getIntent())
   // console.log(`action: ${util.inspect(action)}`)
