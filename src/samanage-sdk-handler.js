@@ -51,7 +51,7 @@ export default ((request, response) => {
 
   const actionMap = new Map()
   actionMap.set(assistant.StandardIntents.MAIN, welcomeIntent)
-  actionMap.set(assistant.custom.intent.SINGLE_RETURN_NO_CONTEXT, singleReturnNCIntent)
+  actionMap.set(assistant.intent.SINGLE_RETURN_NO_CONTEXT, singleReturnNCIntent)
   assistant.handleRequest(actionMap)
 
   // let action = actionMap.get(assistant.getIntent())
